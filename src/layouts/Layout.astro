@@ -26,5 +26,33 @@ const description = frontmatter?.description || 'Sistem Belajar Fullstack Web De
   </head>
   <body class="font-['Inter']">
     <slot />
+
+    <!-- MermaidJS Renderer -->
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+
+      // Astro Shiki syntax highlighter membungkus dengan <pre data-language="mermaid">
+      const mermaidBlocks = document.querySelectorAll('pre[data-language="mermaid"]');
+      
+      mermaidBlocks.forEach(async (pre, index) => {
+        // textContent akan mengambil teks murni (tanpa tag HTML <span> dari Shiki)
+        const code = pre.textContent.trim();
+        const id = `mermaid-graph-${index}`;
+        
+        // Buat container baru
+        const container = document.createElement('div');
+        container.className = 'mermaid flex justify-center py-4 w-full overflow-x-auto';
+        
+        try {
+          const { svg } = await mermaid.render(id, code);
+          container.innerHTML = svg;
+          // Ganti elemen <pre> pembungkusnya dengan diagram SVG
+          pre.replaceWith(container);
+        } catch (e) {
+          console.error('Mermaid render error:', e);
+        }
+      });
+    </script>
   </body>
 </html>
