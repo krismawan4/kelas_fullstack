@@ -37,7 +37,7 @@ Video di atas menjelaskan fondasi paling dasar dari cara kerja komputer, yaitu *
 
 Berdasarkan materi konseptual dan video di atas, kerjakan soal-soal berikut:
 
-1. Sebutkan 3 perbedaan antara hardware dan software!
+1. Apa perbedaan utama antara *Compiler* dan *Interpreter* dalam menerjemahkan kode bahasa pemrograman?
 2. Jelaskan dengan bahasa Anda sendiri, mengapa komputer menggunakan sistem bilangan biner (0 dan 1)?
 3. Jika semua data di komputer pada akhirnya berupa 0 dan 1, bagaimana cara komputer bisa membedakan mana yang berupa teks dan mana yang berupa gambar? (Gunakan logika pemahaman Anda!)
 4. Cari tahu apa tugas utama dari seorang Fullstack Web Developer.
