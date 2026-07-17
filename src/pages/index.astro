@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro'
+import LandingPage from '../components/LandingPage.vue'
+
+const frontmatter = {
+  title: 'Fullstack Web Developer — SMK Bhakti',
+  description: 'Program belajar Fullstack Web Developer untuk siswa SMK Bhakti. Dari HTML dasar hingga framework modern seperti Vue.js, React, dan PHP.',
+}
+---
+
+<Layout frontmatter={frontmatter}>
+  <LandingPage client:load />
+</Layout>

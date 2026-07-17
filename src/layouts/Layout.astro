@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  frontmatter?: {
+    title?: string;
+    description?: string;
+  };
+}
+
+const { frontmatter } = Astro.props;
+const title = frontmatter?.title || 'LMS Fullstack';
+const description = frontmatter?.description || 'Sistem Belajar Fullstack Web Developer';
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body class="font-['Inter']">
+    <slot />
+  </body>
+</html>
