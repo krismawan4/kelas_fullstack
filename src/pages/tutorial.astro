@@ -1,11 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 const allLessons = await getCollection('tutorial');
 
+type ModuleGroup = {
+  id: string;
+  title: string;
+  emoji: string;
+  color: string;
+  borderColor: string;
+  accentColor: string;
+  bgAccent?: string;
+  lessons: CollectionEntry<'tutorial'>[];
+};
+
 // Mengelompokkan materi berdasarkan modul
-const modules = allLessons.reduce((acc, lesson) => {
+const modules = allLessons.reduce((acc, lesson: CollectionEntry<'tutorial'>) => {
   const modId = lesson.data.module;
   if (!acc[modId]) {
     acc[modId] = {
@@ -20,7 +31,7 @@ const modules = allLessons.reduce((acc, lesson) => {
   }
   acc[modId].lessons.push(lesson);
   return acc;
-}, {} as Record<string, any>);
+}, {} as Record<string, ModuleGroup>);
 
 // Konversi ke array dan urutkan
 const sortedModules = Object.values(modules).sort((a, b) => a.id.localeCompare(b.id));
