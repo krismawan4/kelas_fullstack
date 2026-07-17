@@ -60,10 +60,22 @@ const modulesData = [
     tags: ['PHP', 'MySQL', 'CRUD'],
     duration: '4 Minggu',
   },
+  {
+    num: '06',
+    emoji: '🧩',
+    title: 'Ekosistem Tambahan',
+    desc: 'Bootstrap, jQuery, Alpine.js, Astro, dan Firebase.',
+    color: 'from-indigo-500 to-blue-700',
+    borderColor: 'border-indigo-500/50',
+    accentColor: 'text-indigo-400',
+    bgAccent: 'bg-indigo-500/10',
+    tags: ['Astro', 'Firebase', 'Alpine'],
+    duration: '2 Minggu',
+  },
 ]
 
 const stats = [
-  { number: '5', label: 'Modul Lengkap', icon: '📚' },
+  { number: '6', label: 'Modul Lengkap', icon: '📚' },
   { number: '20+', label: 'Topik Pembelajaran', icon: '🎯' },
   { number: '5', label: 'Proyek Nyata', icon: '🚀' },
   { number: '100%', label: 'Siap Kerja', icon: '💼' },
@@ -153,7 +165,7 @@ const features = [
       <div class="max-w-5xl mx-auto">
         <div class="text-center mb-14">
           <div class="inline-block bg-orange-500/10 border border-orange-500/30 text-orange-400 text-sm px-4 py-1.5 rounded-full mb-4">Kurikulum</div>
-          <h2 class="text-4xl md:text-5xl font-black mb-4">5 Modul <span class="text-orange-400">Terstruktur</span></h2>
+          <h2 class="text-4xl md:text-5xl font-black mb-4">6 Modul <span class="text-orange-400">Terstruktur</span></h2>
           <p class="text-slate-400 text-lg max-w-xl mx-auto">Klik pada modul untuk melihat materi lengkap dan contoh kode. 👇</p>
         </div>
 
