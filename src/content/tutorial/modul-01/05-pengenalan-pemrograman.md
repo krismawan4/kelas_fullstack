@@ -37,7 +37,30 @@ Video di atas menjelaskan fondasi paling dasar dari cara kerja komputer, yaitu *
 
 Berdasarkan materi konseptual dan video di atas, kerjakan soal-soal berikut:
 
-1. Apa perbedaan utama antara *Compiler* dan *Interpreter* dalam menerjemahkan kode bahasa pemrograman?
-2. Jelaskan dengan bahasa Anda sendiri, mengapa komputer menggunakan sistem bilangan biner (0 dan 1)?
-3. Jika semua data di komputer pada akhirnya berupa 0 dan 1, bagaimana cara komputer bisa membedakan mana yang berupa teks dan mana yang berupa gambar? (Gunakan logika pemahaman Anda!)
-4. Cari tahu apa tugas utama dari seorang Fullstack Web Developer.
+<details>
+  <summary><strong>1. Apa perbedaan utama antara <em>Compiler</em> dan <em>Interpreter</em> dalam menerjemahkan kode bahasa pemrograman?</strong></summary>
+  
+  > **Jawaban:**
+  > *Compiler* menerjemahkan seluruh kode program menjadi bahasa mesin sekaligus **sebelum** program dijalankan (misal: C++, Java). Sedangkan *Interpreter* menerjemahkan dan langsung mengeksekusi kode baris demi baris **saat** program sedang berjalan (misal: JavaScript, PHP, Python).
+</details>
+
+<details>
+  <summary><strong>2. Jelaskan dengan bahasa Anda sendiri, mengapa komputer menggunakan sistem bilangan biner (0 dan 1)?</strong></summary>
+
+  > **Jawaban:**
+  > Komputer pada level paling dasar dibangun dari jutaan sakelar elektronik berukuran mikro (transistor). Angka biner 1 dan 0 adalah representasi paling natural dari kondisi fisik transistor tersebut: **1** untuk arus listrik mengalir (ON) dan **0** untuk arus listrik terputus (OFF).
+</details>
+
+<details>
+  <summary><strong>3. Jika semua data di komputer pada akhirnya berupa 0 dan 1, bagaimana cara komputer bisa membedakan mana yang berupa teks dan mana yang berupa gambar?</strong></summary>
+
+  > **Jawaban:**
+  > Komputer menggunakan konteks format (*metadata*) dan software (program) yang sesuai untuk membacanya. Software pengolah teks akan menerjemahkan barisan 0 dan 1 tersebut menggunakan standar huruf (seperti ASCII/UTF-8), sedangkan software *viewer* gambar akan membacanya sebagai instruksi pixel warna di layar.
+</details>
+
+<details>
+  <summary><strong>4. Cari tahu apa tugas utama dari seorang Fullstack Web Developer.</strong></summary>
+
+  > **Jawaban:**
+  > Fullstack Web Developer adalah seseorang yang memiliki tanggung jawab penuh untuk merancang dan mengembangkan sebuah aplikasi web secara menyeluruh. Ia mengerjakan bagian **Frontend** (antarmuka yang dilihat/diklik pengguna) sekaligus **Backend** (server, pemrosesan logika bisnis, dan database).
+</details>
