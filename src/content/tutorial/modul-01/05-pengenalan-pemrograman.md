@@ -19,6 +19,10 @@ duration: "2 Minggu"
 - **Profesi Developer:** Peran dan tanggung jawab seorang Software Engineer.
 - **Package Manager:** Pengenalan singkat NPM/Yarn.
 
+## Materi Video
+
+<iframe width="100%" height="400" src="https://www.youtube.com/embed/1T3A_pXmhzg" title="Pengenalan Pemrograman" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-xl my-6"></iframe>
+
 ## Contoh Kode
 
 (Belum ada kode, ini materi konseptual)
