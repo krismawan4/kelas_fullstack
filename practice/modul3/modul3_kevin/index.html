@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Users API</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b,#111827);
+    color:#f8fafc;
+    padding:40px;
+    min-height:100vh;
+}
+
+/* Judul */
+.title{
+    text-align:center;
+    font-size:42px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:45px;
+    background:linear-gradient(90deg,#3b82f6,#06b6d4,#22d3ee);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    position:relative;
+}
+
+.title::after{
+    content:"";
+    width:140px;
+    height:4px;
+    background:linear-gradient(90deg,#3b82f6,#06b6d4);
+    display:block;
+    margin:12px auto 0;
+    border-radius:20px;
+}
+
+/* Card Container */
+#cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+/* Card */
+.card{
+    background:#1e293b;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+    transition:.35s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#3b82f6;
+    box-shadow:0 15px 35px rgba(59,130,246,.35);
+}
+
+/* Avatar */
+.avatar{
+    width:80px;
+    height:80px;
+    margin:auto;
+    margin-bottom:15px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:32px;
+    font-weight:bold;
+    color:#fff;
+    background:linear-gradient(135deg,#3b82f6,#06b6d4);
+    box-shadow:0 0 20px rgba(59,130,246,.45);
+}
+
+/* Nama */
+h2{
+    text-align:center;
+    color:#60a5fa;
+    margin-bottom:5px;
+}
+
+.username{
+    text-align:center;
+    color:#94a3b8;
+    margin-bottom:18px;
+    font-style:italic;
+}
+
+/* Data */
+p{
+    margin:10px 0;
+    padding-bottom:8px;
+    color:#e2e8f0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+p:last-child{
+    border-bottom:none;
+}
+
+b{
+    color:#38bdf8;
+}
+</style>
+
+</head>
+<body>
+
+<h1 class="title">👥 Daftar Users</h1>
+
+<div id="cards"></div>
+
+<script>
+fetch("https://jsonplaceholder.typicode.com/users")
+.then(response => response.json())
+.then(users => {
+
+    const cards = document.getElementById("cards");
+
+    users.forEach(user => {
+
+        cards.innerHTML += `
+        <div class="card">
+
+            <div class="avatar">
+                ${user.name.charAt(0)}
+            </div>
+
+            <h2>${user.name}</h2>
+
+            <div class="username">
+                @${user.username}
+            </div>
+
+            <p><b>Email :</b> ${user.email}</p>
+            <p><b>Telepon :</b> ${user.phone}</p>
+            <p><b>Website :</b> ${user.website}</p>
+            <p><b>Kota :</b> ${user.address.city}</p>
+            <p><b>Perusahaan :</b> ${user.company.name}</p>
+
+        </div>
+        `;
+    });
+
+})
+.catch(error => {
+    console.log(error);
+});
+</script>
+
+</body>
+</html>
+gi
