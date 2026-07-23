@@ -1,0 +1,15 @@
+/* Custom styles beyond Tailwind */
+
+/* Initial state for anime.js animation */
+.user-card {
+    opacity: 0; 
+    transform: translateY(30px);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover effects */
+.user-card:hover {
+    box-shadow: 0 15px 30px -10px rgba(249, 115, 22, 0.25), 0 10px 15px -10px rgba(249, 115, 22, 0.15);
+    transform: translateY(-4px) !important; /* Override anime.js final state on hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
