@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>User Directory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    :root { --ink:#17213a; --muted:#71809c; --line:#e9edf5; --primary:#635bff; --panel:#fff; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; font-family:Manrope,Arial,sans-serif; color:var(--ink); background:#f3f5ff; }
+    .page { max-width:1180px; margin:auto; padding:48px 24px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-bottom:30px; }
+    .eyebrow { margin:0 0 7px; color:var(--primary); font-size:.75rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+    h1 { margin:0; font-size:clamp(1.65rem,4vw,2.4rem); letter-spacing:-.06em; }
+    .count { display:flex; align-items:center; gap:9px; margin:0; padding:10px 14px; border-radius:12px; color:#4e5d79; background:#e9e8ff; font-size:.84rem; font-weight:700; white-space:nowrap; }
+    .layout { display:grid; grid-template-columns:minmax(240px,.75fr) minmax(0,1.25fr); gap:24px; }
+    .users, .details { overflow:hidden; border:1px solid var(--line); border-radius:22px; background:var(--panel); box-shadow:0 18px 50px rgba(47,56,103,.07); }
+    .users-head { padding:20px 20px 14px; border-bottom:1px solid var(--line); }
+    .users-head h2 { margin:0; font-size:1rem; }
+    .user-list { max-height:620px; overflow:auto; padding:9px; }
+    .user-button { display:flex; width:100%; align-items:center; gap:12px; padding:12px; border:0; border-radius:14px; color:inherit; background:transparent; cursor:pointer; text-align:left; transition:.18s ease; }
+    .user-button:hover { background:#f5f6ff; }
+    .user-button.active { color:#4b43ed; background:#eeedff; }
+    .avatar { display:grid; flex:0 0 40px; width:40px; height:40px; place-items:center; border-radius:13px; color:#554df0; background:#e6e4ff; font-size:.9rem; font-weight:800; }
+    .user-button.active .avatar { color:white; background:var(--primary); }
+    .user-name { display:block; font-size:.88rem; font-weight:800; }
+    .user-handle { display:block; margin-top:2px; color:var(--muted); font-size:.75rem; }
+    .details { padding:clamp(22px,4vw,38px); }
+    .profile-top { display:flex; align-items:center; gap:17px; padding-bottom:26px; border-bottom:1px solid var(--line); }
+    .profile-avatar { display:grid; flex:0 0 66px; width:66px; height:66px; place-items:center; border-radius:20px; color:white; background:linear-gradient(135deg,#756dff,#4ca6ff); font-size:1.35rem; font-weight:800; }
+    .profile-top h2 { margin:0; font-size:1.45rem; letter-spacing:-.05em; }
+    .profile-top p { margin:5px 0 0; color:var(--muted); font-size:.87rem; }
+    .label { margin:27px 0 12px; color:#8a97ad; font-size:.7rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+    .info-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .info { display:flex; align-items:flex-start; gap:11px; min-width:0; padding:14px; border:1px solid var(--line); border-radius:14px; background:#fcfcff; }
+    .info i { width:19px; margin-top:2px; color:#7068f9; text-align:center; }
+    .info span { display:block; overflow-wrap:anywhere; color:#4d5b75; font-size:.79rem; line-height:1.55; }
+    .info strong { display:block; margin-bottom:2px; color:#98a3b6; font-size:.67rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
+    .company { padding:16px; border-radius:15px; background:#f5f5ff; }
+    .company b { display:block; font-size:.95rem; }
+    .company p { margin:6px 0 0; color:#64718b; font-size:.8rem; line-height:1.6; }
+    .loading { display:grid; min-height:300px; place-items:center; color:var(--muted); }
+    .loading i { margin-right:8px; color:var(--primary); }
+    @media (max-width:760px) { .page { padding:27px 16px; } .layout { grid-template-columns:1fr; } .user-list { max-height:310px; } .info-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div><p class="eyebrow"></p><h1>User Directory</h1></div>
+      <p class="count"><i class="fa-solid fa-users"></i> <span id="count">Memuat...</span></p>
+    </header>
+    <section class="layout">
+      <aside class="users"><div class="users-head"><h2><i class="fa-solid fa-address-book"></i> Pilih pengguna</h2></div><div id="userList" class="user-list"></div></aside>
+      <article id="details" class="details"><div class="loading"><span><i class="fa-solid fa-spinner fa-spin"></i> Mengambil data pengguna...</span></div></article>
+    </section>
+  </main>
+  <script>
+    const userList = document.querySelector('#userList');
+    const detailBox = document.querySelector('#details');
+    const count = document.querySelector('#count');
+    let users = [];
+
+    const safe = (value) => String(value ?? '').replace(/[&<>\"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '\"':'&quot;', "'":'&#039;' })[char]);
+    const initials = (name) => name.split(' ').map(word => word[0]).slice(0, 2).join('').toUpperCase();
+
+    function renderList(selectedId) {
+      userList.innerHTML = users.map(user => `
+        <button class="user-button ${user.id === selectedId ? 'active' : ''}" data-id="${user.id}">
+          <span class="avatar">${initials(user.name)}</span>
+          <span><span class="user-name">${safe(user.name)}</span><span class="user-handle">@${safe(user.username)}</span></span>
+        </button>`).join('');
+      document.querySelectorAll('.user-button').forEach(button => button.addEventListener('click', () => showUser(Number(button.dataset.id))));
+    }
+
+    function item(icon, label, value) {
+      return `<div class="info"><i class="fa-solid ${icon}"></i><span><strong>${label}</strong>${safe(value)}</span></div>`;
+    }
+
+    function showUser(id) {
+      const user = users.find(item => item.id === id);
+      if (!user) return;
+      renderList(id);
+      const address = `${user.address.street}, ${user.address.suite}, ${user.address.city}, ${user.address.zipcode}`;
+      detailBox.innerHTML = `
+        <div class="profile-top"><div class="profile-avatar">${initials(user.name)}</div><div><h2>${safe(user.name)}</h2><p><i class="fa-solid fa-at"></i> ${safe(user.username)}</p></div></div>
+        <p class="label">Informasi kontak</p>
+        <div class="info-grid">
+          ${item('fa-envelope', 'Email', user.email)}
+          ${item('fa-phone', 'Telepon', user.phone)}
+          ${item('fa-globe', 'Website', user.website)}
+          ${item('fa-location-dot', 'Alamat', address)}
+        </div>
+        <p class="label">Perusahaan</p>
+        <div class="company"><b><i class="fa-solid fa-building"></i> ${safe(user.company.name)}</b><p>“${safe(user.company.catchPhrase)}”</p><p><i class="fa-solid fa-briefcase"></i> ${safe(user.company.bs)}</p></div>
+        <p class="label">Koordinat</p>
+        <div class="info-grid">${item('fa-map-location-dot', 'Latitude', user.address.geo.lat)}${item('fa-map-location-dot', 'Longitude', user.address.geo.lng)}</div>`;
+    }
+
+    async function loadUsers() {
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        if (!response.ok) throw new Error('API tidak merespons');
+        users = await response.json();
+        count.textContent = `${users.length} pengguna`;
+        renderList(users[0].id);
+        showUser(users[0].id);
+      } catch (error) {
+        count.textContent = 'Gagal dimuat';
+        detailBox.innerHTML = '<div class="loading">Tidak dapat mengambil data API. Jalankan file melalui Live Server dan periksa koneksi internet.</div>';
+      }
+    }
+    loadUsers();
+  </script>
+</body>
+</html>
