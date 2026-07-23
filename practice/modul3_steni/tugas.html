@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 Data Pengguna 🌸</title>
+
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#F8F2FF,#F3E8FF,#FDF7FF);
+    padding:30px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+    color:#7C3AED;
+    margin-bottom:30px;
+    font-size:35px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#ffffffcc;
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 8px 20px rgba(139,92,246,.2);
+    transition:.3s;
+    border:2px solid #E9D5FF;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 25px rgba(139,92,246,.35);
+}
+
+.header{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.avatar{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:#E9D5FF;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    font-size:35px;
+}
+
+.name{
+    margin-top:10px;
+    color:#6B21A8;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.username{
+    color:#A855F7;
+    margin-top:5px;
+}
+
+.info{
+    margin:10px 0;
+    color:#555;
+    line-height:1.5;
+}
+
+.label{
+    color:#7E22CE;
+    font-weight:bold;
+}
+
+.company{
+    margin-top:15px;
+    background:#F3E8FF;
+    border-left:5px solid #A855F7;
+    padding:12px;
+    border-radius:10px;
+}
+
+.loading{
+    text-align:center;
+    color:#7C3AED;
+    font-size:20px;
+}
+
+.footer{
+    text-align:center;
+    margin-top:40px;
+    color:#8B5CF6;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>🌸 Data Pengguna 🌷</h1>
+
+<div class="loading" id="loading">
+🌼 Memuat data...
+</div>
+
+<div class="cards" id="users"></div>
+
+<div class="footer">
+🌷 STNMRAA 🌸
+</div>
+
+</div>
+
+<script>
+
+// Ganti menjadi "users.json" jika memakai file lokal
+const url = "https://jsonplaceholder.typicode.com/users";
+
+fetch(url)
+.then(response => response.json())
+.then(data => {
+
+    document.getElementById("loading").style.display="none";
+
+    let hasil="";
+
+    data.forEach(user=>{
+
+        hasil += `
+        <div class="card">
+
+            <div class="header">
+                <div class="avatar">🌸</div>
+                <div class="name">${user.name}</div>
+                <div class="username">@${user.username}</div>
+            </div>
+
+            <div class="info">
+                <span class="label">📧 Email</span><br>
+                ${user.email}
+            </div>
+
+            <div class="info">
+                <span class="label">📱 Telepon</span><br>
+                ${user.phone}
+            </div>
+
+            <div class="info">
+                <span class="label">🌍 Website</span><br>
+                ${user.website}
+            </div>
+
+            <div class="info">
+                <span class="label">🏡 Alamat</span><br>
+                ${user.address.street}, ${user.address.suite}<br>
+                ${user.address.city} (${user.address.zipcode})
+            </div>
+
+            <div class="company">
+                🌷 <strong>${user.company.name}</strong><br><br>
+                <em>"${user.company.catchPhrase}"</em><br><br>
+                🌼 ${user.company.bs}
+            </div>
+
+        </div>
+        `;
+
+    });
+
+    document.getElementById("users").innerHTML = hasil;
+
+})
+.catch(err=>{
+    document.getElementById("loading").innerHTML="❌ Data gagal dimuat.";
+    console.log(err);
+});
+
+</script>
+
+</body>
+</html>
