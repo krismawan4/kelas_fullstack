@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>👥 Data Users</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg, #111827, #1f2937, #374151);
+    min-height:100vh;
+    padding:40px;
+}
+
+h1{
+    text-align:center;
+    color:white;
+    margin-bottom:10px;
+    font-size:40px;
+}
+
+.subtitle{
+    text-align:center;
+    color:white;
+    margin-bottom:40px;
+    opacity:.9;
+}
+
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:rgba(255,255,255,.2);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.3);
+    border-radius:20px;
+    padding:25px;
+    color:#fff;
+    transition:.35s;
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.03);
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+}
+
+.avatar{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:40px;
+    margin:auto;
+    margin-bottom:15px;
+}
+
+.name{
+    text-align:center;
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.username{
+    text-align:center;
+    color:#ffe082;
+    margin-bottom:20px;
+}
+
+.info{
+    background:rgba(255,255,255,.15);
+    padding:10px 15px;
+    border-radius:12px;
+    margin-bottom:10px;
+    transition:.3s;
+}
+
+.info:hover{
+    background:rgba(255,255,255,.28);
+}
+
+.info span{
+    font-weight:bold;
+}
+
+.loading{
+    text-align:center;
+    color:white;
+    font-size:25px;
+    margin-top:100px;
+}
+
+footer{
+    margin-top:40px;
+    text-align:center;
+    color:white;
+    opacity:.8;
+}
+</style>
+
+</head>
+<body>
+
+<h1>👨‍💼 Daftar Pengguna</h1>
+<p class="subtitle">✨ Data diambil langsung dari API JSONPlaceholder</p>
+
+<div id="users" class="container">
+    <div class="loading">⏳ Sedang mengambil data...</div>
+</div>
+
+<script>
+
+fetch("https://jsonplaceholder.typicode.com/users")
+.then(res=>res.json())
+.then(data=>{
+
+const container=document.getElementById("users");
+container.innerHTML="";
+
+data.forEach(user=>{
+
+container.innerHTML+=`
+
+<div class="card">
+
+<div class="avatar">🧑</div>
+
+<div class="name">${user.name}</div>
+
+<div class="username">@${user.username}</div>
+
+<div class="info">
+📧 <span>Email</span><br>
+${user.email}
+</div>
+
+<div class="info">
+📱 <span>Telepon</span><br>
+${user.phone}
+</div>
+
+<div class="info">
+🌐 <span>Website</span><br>
+<a href="https://${user.website}" target="_blank" style="color:#fff;">
+${user.website}
+</a>
+</div>
+
+<div class="info">
+🏢 <span>Perusahaan</span><br>
+${user.company.name}
+</div>
+
+<div class="info">
+📍 <span>Alamat</span><br>
+${user.address.street},
+${user.address.suite}<br>
+${user.address.city} - ${user.address.zipcode}
+</div>
+
+</div>
+
+`;
+
+});
+
+})
+.catch(error=>{
+
+document.getElementById("users").innerHTML=`
+<div class="loading">
+❌ Gagal mengambil data.
+</div>
+`;
+
+console.log(error);
+
+});
+
+</script>
+
+<footer>
+🚀 Dibuat dengan HTML, CSS & JavaScript
+</footer>
+
+</body>
+</html>
